@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { RealEstate } from "./realEstate.entity";
+import { RealEstate } from "./real_estates.entity";
 
 @Entity('schedules')
 export class Schedule {

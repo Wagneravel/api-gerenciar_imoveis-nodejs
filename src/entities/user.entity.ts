@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { RealEstate } from './real_estates.entity';
 
 @Entity('users')
 export class User {
@@ -25,6 +26,10 @@ export class User {
 
   @Column({ nullable: true })
   deletedAt: Date;
+
+  @OneToMany(() => RealEstate, realEstate => realEstate.user)
+  realEstates: RealEstate[];
 }
 
 export default User;
+
