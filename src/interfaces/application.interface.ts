@@ -93,3 +93,4 @@ export interface CreateUserResponse {
   updatedAt: Date;
   deletedAt: Date | null;
 }
+

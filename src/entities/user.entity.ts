@@ -1,19 +1,29 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
-import { RealEstate } from './real_estates.entity';
+import { getRounds, hashSync } from 'bcryptjs';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { RealEstate } from './realEstates.entity';
 
 @Entity('users')
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("increment")
   id: number;
 
-  @Column()
+  @Column({length:45})
   name: string;
 
-  @Column()
+  @Column({length:45, unique:true})
   email: string;
 
-  @Column()
+  @Column({length:120})
   password: string;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  hashInsertPassword(){
+    const isEncrypted = getRounds(this.password)
+        if(!isEncrypted){
+            this.password = hashSync(this.password, 10)
+        }
+  }
 
   @Column({ default: false })
   admin: boolean;
@@ -26,9 +36,6 @@ export class User {
 
   @Column({ nullable: true })
   deletedAt: Date;
-
-  @OneToMany(() => RealEstate, realEstate => realEstate.user)
-  realEstates: RealEstate[];
 }
 
 export default User;
