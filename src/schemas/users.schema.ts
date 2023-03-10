@@ -22,7 +22,7 @@ export const userResponseSchema = returnUserSchema
     password: true
 })
 
-export const returnMultipleUsersSchema = returnUserSchema.array()
+export const returnMultipleUsersSchema = userResponseSchema.array()
 
 
 export const userUpdateSchema = userReqSchema.pick({name:true, email:true, password:true}).partial()

@@ -2,10 +2,10 @@ import { Repository } from "typeorm"
 import { AppDataSource } from "../../data-source"
 import { User } from "../../entities"
 import { AppError } from "../../errors"
-import { iUserReturn, iUserUpdateRequest } from "../../interfaces/user.interface"
-import { returnUserSchema } from "../../schemas/users.schema"
+import { iUpdateResponse, iUserReturn, iUserUpdateRequest } from "../../interfaces/user.interface"
+import { returnUserSchema, userResponseSchema } from "../../schemas/users.schema"
 
-export const updateUserService = async (newUserData: any, idUser: number): Promise<iUserReturn> => {
+export const updateUserService = async (newUserData: any, idUser: number): Promise<iUpdateResponse> => {
 
     if(!Object.keys(newUserData).length){
         console.log(newUserData)
@@ -26,7 +26,7 @@ export const updateUserService = async (newUserData: any, idUser: number): Promi
 
     await userRepository.save(user)
 
-    const updateUser = returnUserSchema.parse(user)
+    const updateUser = userResponseSchema.parse(user)
 
     return updateUser
 }

@@ -3,8 +3,8 @@ import { RealEstate } from "./realEstates.entity";
 
 @Entity('categories')
 export class Category {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn("increment")
+  id: number;
 
   @Column({ length: 45, unique: true })
   name: string;

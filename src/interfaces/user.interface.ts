@@ -9,3 +9,5 @@ export type iUserReturn = z.infer<typeof userResponseSchema>
 export type iUsersReturn = z.infer<typeof returnMultipleUsersSchema>
 
 export type iUserUpdateRequest = z.infer<typeof userUpdateSchema>  
+
+export type iUpdateResponse = z.infer<typeof userResponseSchema>

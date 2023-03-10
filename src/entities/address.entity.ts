@@ -3,7 +3,7 @@ import { RealEstate } from './realEstates.entity';
 
 @Entity()
 export class Address {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("increment")
   id: number;
 
   @Column({ length: 45 })
@@ -21,3 +21,4 @@ export class Address {
   @Column({ length: 2 })
   state: string;
 }
+

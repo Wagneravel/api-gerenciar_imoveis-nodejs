@@ -20,8 +20,7 @@ export const createMovieController = async (req:Request, res: Response) => {
 
 export async function allUserListController(request:Request, response: Response): Promise<Response>{
 
-    const isUserAdmin: boolean = request.body.admin
-    const allList = await listUsersService(isUserAdmin)
+    const allList = await listUsersService()
 
     return response.status(200).json(allList)
 }
@@ -39,10 +38,9 @@ export const updadeUserController = async (req:Request, res: Response) => {
 
 export async function softDeleteUserController(req: Request, res: Response): Promise<void> {
 
-    const isAdmin: boolean = req.body.admin
     const  id  = parseInt(req.params.id);
   
-    await softDeleteUserService(id , isAdmin);
+    await softDeleteUserService(id);
   
     res.status(204).end();
   }

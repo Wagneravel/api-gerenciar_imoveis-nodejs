@@ -14,7 +14,7 @@ export const checkIfEmailMovieExistsMiddleware = async (req: Request, res: Respo
   
     const emailUser = await userRepository.findOne({
         where: {
-            name: req.body.email
+            email: req.body.email
         }
     });
 

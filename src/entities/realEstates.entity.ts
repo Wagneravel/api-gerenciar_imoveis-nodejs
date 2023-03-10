@@ -7,12 +7,9 @@ import User from "./user.entity";
 
 @Entity('real_estates')
 export class RealEstate {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
-  // @Column()
-  // name: string;
-  // @Column()
-  // description: string;
+  @PrimaryGeneratedColumn("increment")
+  id: number;
+  
   @Column({ type: 'decimal', precision: 5, scale: 2 })
   price: number;
 
@@ -44,27 +41,3 @@ export class RealEstate {
 }
 
 
-
-// @Entity('real_estates')
-// export class RealEstate {
-//   @PrimaryGeneratedColumn()
-//   id: number;
-  
-//   @Column({ type: 'decimal', precision: 10, scale: 2 })
-//   value: number;
-  
-//   @Column({ type: 'integer' })
-//   size: number;
-  
-//   @Column({ default: false })
-//   sold: boolean;
-
-//   @CreateDateColumn()
-//   createdAt: Date;
-
-//   @UpdateDateColumn()
-//   updatedAt: Date;
-  
-//   @ManyToOne(() => Category, category => category.realEstates)
-//   category: Category;
-// }

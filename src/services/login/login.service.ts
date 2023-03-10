@@ -11,7 +11,8 @@ import { iLogin } from "../../interfaces/login.interface";
 require('dotenv').config();
 
 export async function createLoginService(loginData: iLogin): Promise<string> {
-    const userRepository: Repository<User> = AppDataSource.getRepository(User)  
+  
+  const userRepository: Repository<User> = AppDataSource.getRepository(User)  
 
   const user = await userRepository.findOne({ where: { email: loginData.email } });
 
@@ -28,7 +29,7 @@ export async function createLoginService(loginData: iLogin): Promise<string> {
   const token = jwt.sign(
     { admin: user.admin },
     String(process.env.JWT_SECRET_KEY),
-    { expiresIn: process.env.EXPIRES_IN, subject: String(user.id) }
+    { expiresIn: process.env.EXPIRES_IN!, subject: String(user.id) }
   );
 
   return token;

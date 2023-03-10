@@ -5,31 +5,26 @@ import { AppDataSource } from "../data-source";
 import { User } from "../entities";
 import { AppError } from "../errors";
 
-async function verifyTokenIsValidMiddleware(
-  request: Request,
-  response: Response,
-  next: NextFunction
-) {
-  const token = request.headers.authorization?.split(" ")[1];
+async function verifyTokenIsValidMiddleware(request: Request,  response: Response, next: NextFunction) {
+  let token = request.headers.authorization
 
-  if (!token) {
-    throw new AppError("Missing Bearer Token", 401);
+  if(!token){
+      throw new AppError("Missing Bearer Token", 401);
   }
 
-  try {
-    const decodedToken: any = jwt.verify(token, process.env.SECRET_KEY!);
-    const userRepository: Repository<User> = AppDataSource.getRepository(User);
-    const user = await userRepository.findOneOrFail(decodedToken.sub);
+  token = token.split(" ")[1]
 
-    request.user = {
-      id: user.id,
-      admin: user.admin,
-    };
-
-    return next();
-  } catch (error) {
-    throw new AppError("Invalid or expired token", 401);
+  jwt.verify(token, process.env.JWT_SECRET_KEY!, (error, decoded: any) => {
+  if (error) {
+    throw new AppError(error.message, 401);
   }
+  request.user = {
+    id: decoded.sub,
+    admin: decoded.admin,
+  };
+  return next();
+});
+  
 }
 
 export default verifyTokenIsValidMiddleware;

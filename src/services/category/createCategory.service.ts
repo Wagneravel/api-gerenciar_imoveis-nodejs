@@ -1,11 +1,11 @@
-import { EntityManager } from "typeorm";
+import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Category } from "../../entities";
+import { iCategoryResponse } from "../../interfaces/category.interface";
 
-export async function createCategoryService(name: string): Promise<Category> {
-  const entityManager: EntityManager = AppDataSource.createEntityManager();
+export async function createCategoryService(name: string): Promise<iCategoryResponse> {
 
-  const categoryRepository = entityManager.getRepository(Category);
+  const categoryRepository: Repository<Category> = AppDataSource.getRepository(Category)  
 
   // Verifica se já existe uma categoria com o mesmo nome
   const existingCategory = await categoryRepository.findOne({ where: { name } });

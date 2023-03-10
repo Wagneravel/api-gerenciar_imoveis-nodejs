@@ -5,11 +5,8 @@ import { AppDataSource } from "../../data-source";
 import { User } from "../../entities";
 import { AppError } from "../../errors";
 
-export async function softDeleteUserService(id: number, isAdmin:boolean): Promise<void> {
+export async function softDeleteUserService(id: number): Promise<void> {
 
-    if (!isAdmin) {
-        throw new AppError('Unauthorized', 401);
-    }
 
     const userRepository: Repository<User> = AppDataSource.getRepository(User);
   

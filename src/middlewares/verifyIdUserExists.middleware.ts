@@ -4,7 +4,7 @@ import { AppDataSource } from "../data-source";
 import { User } from "../entities";
 import { AppError } from "../errors";
 
-export const checkIfIdMovieExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyIfIdUserExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
     const userRepository: Repository<User> = AppDataSource.getRepository(User)
   
