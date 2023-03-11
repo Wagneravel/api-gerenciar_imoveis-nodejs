@@ -1,7 +1,6 @@
 import { Request, Response } from "express"
 import { User } from "../entities"
 import { AppError } from "../errors"
-import { CreateUserDto } from "../interfaces/application.interface"
 import { IUserReq } from "../interfaces/user.interface"
 import { createUserService } from "../services/user/createUser.service"
 import { softDeleteUserService } from "../services/user/deleteUser.service"

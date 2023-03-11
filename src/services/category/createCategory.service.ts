@@ -1,6 +1,7 @@
 import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Category } from "../../entities";
+import { AppError } from "../../errors";
 import { iCategoryResponse } from "../../interfaces/category.interface";
 
 export async function createCategoryService(name: string): Promise<iCategoryResponse> {
@@ -11,7 +12,7 @@ export async function createCategoryService(name: string): Promise<iCategoryResp
   const existingCategory = await categoryRepository.findOne({ where: { name } });
 
   if (existingCategory) {
-    throw new Error("Já existe uma categoria com este nome.");
+    throw new AppError("Já existe uma categoria com este nome.");
   }
 
   // Cria uma nova categoria

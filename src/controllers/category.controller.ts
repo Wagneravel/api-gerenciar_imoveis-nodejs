@@ -3,11 +3,12 @@ import { ConnectionNotFoundError } from "typeorm";
 import { AppError } from "../errors";
 import { createCategoryService } from "../services/category/createCategory.service";
 import { getAllCategoriesService } from "../services/category/listAllCategory.service";
-// import { getRealEstatesByCategoryIdService } from "../services/category/listEstateCategory.service";
+import { getRealEstatesByCategoryIdService } from "../services/category/listEstateCategory.service";
 
 
 export async function createCategoryController(req: Request, res: Response) {
-  const  {name} = req.body.name;
+
+  const  name = req.body.name;
 
   const category = await createCategoryService(name);
 
@@ -16,32 +17,21 @@ export async function createCategoryController(req: Request, res: Response) {
 
 
 
-export async function getAllCategoriesController(request: Request, response: Response): Promise<Response> {
-  const categories = await getAllCategoriesService();
-  
-  if (!categories) {
-    throw new AppError("Não foi possível encontrar categorias.", 404);
-  }
 
-  return response.json(categories);
+export async function getAllCategoriesController(req: Request, res: Response) {
+
+  const categories = await getAllCategoriesService();
+
+  res.status(200).json(categories);
+}
+
+
+export async function getRealEstatesByCategoryIdController(req: Request, res: Response): Promise<void> {
+  const { categoryId } = req.params;
+  const realEstates = await getRealEstatesByCategoryIdService(categoryId);
+
+  res.status(200).json(realEstates);
 }
 
 
 
-
-// export async function getRealEstatesByCategoryIdController(request: Request, response: Response) {
-//     const { id } = request.params;
-  
-//     try {
-//       const realEstates = await getRealEstatesByCategoryIdService(id);
-  
-//       response.status(200).json(realEstates);
-//     } catch (error) {
-//       if (error instanceof AppError) {
-//         response.status(error.statusCode).json({ error: error.message });
-//       } else {
-//         console.error(error);
-//         response.status(500).json({ error: "Internal server error" });
-//       }
-//     }
-//   }

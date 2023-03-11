@@ -3,7 +3,7 @@ import { allUserListController, createMovieController, softDeleteUserController,
 import { ensureDataIsValidMiddleware } from "../middlewares/ensureDataIsValid.middleware";
 import { checkIfEmailMovieExistsMiddleware } from "../middlewares/verifyEmailUser.middleware";
 import { verifyIfIdUserExistsMiddleware } from "../middlewares/verifyIdUserExists.middleware";
-import verifyIsAdminOrSameUserMiddleware from "../middlewares/verifyIsAdminOrSameUser.middleware";
+import verifyIsAdminOrSameUserMiddleware from "../middlewares/verifyIsAdminUser.middleware";
 import verifyTokenIsValidMiddleware from "../middlewares/verifyTokenIsValid.middleware";
 import { userReqSchema, userUpdateSchema } from "../schemas/users.schema";
 

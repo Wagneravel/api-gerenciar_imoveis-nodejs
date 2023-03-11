@@ -10,11 +10,11 @@ export class RealEstate {
   @PrimaryGeneratedColumn("increment")
   id: number;
   
-  @Column({ type: 'decimal', precision: 5, scale: 2 })
-  price: number;
+  @Column({ type: 'decimal', precision: 11, scale: 2 })
+  value: number | string;
 
-  @Column({ type: 'decimal', precision: 5, scale: 2 })
-  area: number;
+  @Column({ type: 'int'})
+  size: number;
 
   @Column({ default: false })
   sold: boolean;

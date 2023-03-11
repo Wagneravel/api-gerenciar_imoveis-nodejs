@@ -1,41 +1,48 @@
-// import { Repository } from "typeorm";
-// import { AppDataSource } from "../../data-source";
-// import { Address, Category, RealEstate } from "../../entities";
+import { Repository } from "typeorm";
+import { AppDataSource } from "../../data-source";
+import { Address, Category, RealEstate } from "../../entities";
+import { AppError } from "../../errors";
+import { iRealEstateRequest, iRealEstateReturn } from "../../interfaces/realEstate.interface";
+import { createAddressSchema } from "../../schemas/address.schema";
 
 
-// export async function createRealEstateService(data: CreateRealEstateData): Promise<RealEstate> {
+export async function createRealEstateService(data: iRealEstateRequest): Promise<iRealEstateReturn> {
 
-//     const realEstateRepository: Repository<RealEstate> = AppDataSource.getRepository(RealEstate)  
-//     const addressRepository: Repository<Address> = AppDataSource.getRepository(Address)  
-//     const categoryRepository: Repository<Category> = AppDataSource.getRepository(Category)  
+  const realEstateRepository: Repository<RealEstate> = AppDataSource.getRepository(RealEstate)  
+  const addressRepository: Repository<Address> = AppDataSource.getRepository(Address)  
+  const categoryRepository: Repository<Category> = AppDataSource.getRepository(Category)  
 
+  const addressData = data.address
 
-//   // Verificar se já existe um imóvel com o mesmo endereço
-//   const existingAddress = await addressRepository.findOne({ where: data.address });
-//   if (existingAddress) {
-//     throw new Error('Endereço já cadastrado.');
-//   }
+  // Verificar se já existe um imóvel com o mesmo endereço
+  const existingAddress = await addressRepository.findOneBy({
+    ...addressData, 
+    number: addressData.number? addressData.number! : null!
+  });
+  if (existingAddress) {
+    throw new AppError('Endereço já cadastrado.');
+  }
 
-//   // Buscar a categoria pelo ID
-//   const category = await categoryRepository.findOne(data.categoryId);
-//   if (!category) {
-//     throw new Error('Categoria não encontrada.');
-//   }
+  const newAddress =  addressRepository.create(addressData)
+  await addressRepository.save(newAddress)
 
-//   // Criar uma nova instância de Endereço e salvar no banco
-//   const address = addressRepository.create(data.address);
-//   await addressRepository.save(address);
+  // Buscar a categoria pelo ID
+  const category = await categoryRepository.findOneBy({id: data.categoryId});
+  if (!category) {
+    throw new AppError('Categoria não encontrada.');
+  }
 
-//   // Criar uma nova instância de Imóvel
-//   const realEstate = realEstateRepository.create({
-//     value: data.value,
-//     size: data.size,
-//     address,
-//     category,
-//   });
+  // Criar uma nova instância de Imóvel
+  const realEstate = realEstateRepository.create({
+    value: data.value,
+    size: data.size,
+    sold:data.sold,
+    address: newAddress,
+    category,
+  });
 
-//   // Salvar no banco de dados
-//   await realEstateRepository.save(realEstate);
+  // Salvar no banco de dados
+  await realEstateRepository.save(realEstate);
 
-//   return realEstate;
-// }
+  return realEstate;
+}
