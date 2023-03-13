@@ -17,6 +17,7 @@ export async function createRealEstateController(req: Request, res: Response): P
 export async function getAllRealEstatesController(req: Request, res: Response) {
   
     const realEstates = await listAllRealEstates();
+    
     res.status(200).json(realEstates);
 }
 

@@ -1,33 +1,23 @@
 import { z } from "zod";
+import { realEstateReturnSchema } from "./real_estates.schemas";
+import { returnUserSchema } from "./users.schema";
 
-export const createScheduleSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  phone: z.string(),
+export const scheduleSchema = z.object({
+  id: z.number(),
   date: z.string(),
+  hour: z.string(),
+});
+
+export const createScheduleSchema = scheduleSchema.omit({id:true}).extend({
   realEstateId: z.number(),
 });
 
-export const returnScheduleSchema = createScheduleSchema.extend({
-  id: z.number(),
-});
+export const scheduleReturnSchema = scheduleSchema.extend({
+  user: returnUserSchema,
+  realEstate: realEstateReturnSchema
+})
 
 
-export const listSchedulesByRealEstateSchema = z.object({
-    realEstateId: z.number(),
-});
-  
-export const returnListScheduleSchema = z.object({
-id: z.number(),
-name: z.string(),
-email: z.string().email(),
-phone: z.string(),
-date: z.string(),
-realEstateId: z.number(),
-});
 
+export const returnListScheduleSchema = z.array(scheduleReturnSchema);
 
-export const scheduleSchema = z.object({
-    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    realEstateId: z.number().int(),
-  });

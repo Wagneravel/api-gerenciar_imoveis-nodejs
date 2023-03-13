@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { date } from "zod";
 import { RealEstate } from "./realEstates.entity";
 import User from "./user.entity";
 
@@ -7,11 +8,11 @@ export class Schedule {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
-  @Column()
-  date: Date;
+  @Column({type:"date"})
+  date: string;
 
-  @Column()
-  time: string;
+  @Column({type:"time"})
+  hour: string;
 
   @ManyToOne(() => RealEstate, realEstate => realEstate.schedules)
   realEstate: RealEstate;
