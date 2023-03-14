@@ -1,5 +1,5 @@
 import { getRounds, hashSync } from 'bcryptjs';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, BeforeInsert, BeforeUpdate } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany, BeforeInsert, BeforeUpdate, DeleteDateColumn } from 'typeorm';
 import { RealEstate } from './realEstates.entity';
 
 @Entity('users')
@@ -28,14 +28,14 @@ export class User {
   @Column({ default: false })
   admin: boolean;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @CreateDateColumn({type:"date"})
+  createdAt: string;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @UpdateDateColumn({type:"date"})
+  updatedAt: string;
 
-  @Column({ nullable: true })
-  deletedAt: Date;
+  @DeleteDateColumn({ nullable: true , type:"date"})
+  deletedAt: string;
 }
 
 export default User;

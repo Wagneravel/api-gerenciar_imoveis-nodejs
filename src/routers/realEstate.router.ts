@@ -8,7 +8,7 @@ import { createRealEstateSchema } from "../schemas/real_estates.schemas";
 
 const realEstateRoutes:Router = Router() 
 
-realEstateRoutes.post('', ensureDataIsValidMiddleware(createRealEstateSchema), verifyTokenIsValidMiddleware, verifyIsAdminUserMiddleware, createRealEstateController) //realEstate	Criação de um imóvel
+realEstateRoutes.post('', verifyTokenIsValidMiddleware, verifyIsAdminUserMiddleware, ensureDataIsValidMiddleware(createRealEstateSchema),   createRealEstateController) //realEstate	Criação de um imóvel
 realEstateRoutes.get('', getAllRealEstatesController) //realEstate	Lista todos os imóveis 
 
 

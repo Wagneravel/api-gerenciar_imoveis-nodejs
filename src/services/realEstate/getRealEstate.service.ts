@@ -10,7 +10,6 @@ export async function listAllRealEstates(): Promise<iGetRealEstateReturn> {
   const realEstates = await realEstateRepository.find({
     relations:{
       address:true,
-      category:true
     }
   });
   return realEstates;

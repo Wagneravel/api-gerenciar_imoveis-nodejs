@@ -10,7 +10,7 @@ export class RealEstate {
   @PrimaryGeneratedColumn("increment")
   id: number;
   
-  @Column({ type: 'decimal', precision: 11, scale: 2 })
+  @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
   value: number | string;
 
   @Column({ type: 'int'})
@@ -19,16 +19,13 @@ export class RealEstate {
   @Column({ default: false })
   sold: boolean;
 
-  @CreateDateColumn()
-  createdAt: Date;
+  @CreateDateColumn({type:"date"})
+  createdAt: string;
 
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @UpdateDateColumn({type:"date"})
+  updatedAt: string;
 
-  @Column({ nullable: true })
-  deletedAt: Date;
-
-  @ManyToOne(() => Category, category => category.realEstates)
+  @ManyToOne(() => Category, category => category.realEstate,{nullable:true})
   category: Category;
 
   @OneToMany(() => Schedule, schedule => schedule.realEstate)

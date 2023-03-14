@@ -6,9 +6,7 @@ import { iUpdateResponse, iUserReturn, iUserUpdateRequest } from "../../interfac
 import { returnUserSchema, userResponseSchema } from "../../schemas/users.schema"
 
 export const updateUserService = async (newUserData: any, idUser: number): Promise<iUpdateResponse> => {
-
     if(!Object.keys(newUserData).length){
-        console.log(newUserData)
         throw new AppError('Body cannot be empty, must contain at least description, name, price or duration!')
         
     }

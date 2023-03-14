@@ -20,7 +20,7 @@ export async function createRealEstateService(data: iRealEstateRequest): Promise
     number: addressData.number? addressData.number! : null!
   });
   if (existingAddress) {
-    throw new AppError('Endereço já cadastrado.');
+    throw new AppError("Address already exists", 409);
   }
 
   const newAddress =  addressRepository.create(addressData)
@@ -34,11 +34,11 @@ export async function createRealEstateService(data: iRealEstateRequest): Promise
 
   // Criar uma nova instância de Imóvel
   const realEstate = realEstateRepository.create({
+    address: newAddress,
+    category,
     value: data.value,
     size: data.size,
     sold:data.sold,
-    address: newAddress,
-    category,
   });
 
   // Salvar no banco de dados

@@ -9,8 +9,8 @@ export const listRealEstatesByCategorySchema = z.object({
 export const realEstateSchema = z.object({
   id: z.number(),
   sold: z.boolean().default(false),
-  size: z.number(),
-  value: z.string().or(z.number()),
+  size: z.number().positive(),
+  value: z.string().or(z.number().positive()),
 });
 
 

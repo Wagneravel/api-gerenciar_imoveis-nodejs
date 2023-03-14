@@ -4,7 +4,7 @@ import { AppDataSource } from "../data-source";
 import { User } from "../entities";
 import { AppError } from "../errors";
 
-export const checkIfEmailMovieExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const checkIfEmailUserExistsMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
     const userRepository: Repository<User> = AppDataSource.getRepository(User)
   
@@ -19,7 +19,7 @@ export const checkIfEmailMovieExistsMiddleware = async (req: Request, res: Respo
     });
 
     if (emailUser) {
-        throw new AppError('User already exists.', 409)
+        throw new AppError('Email already exists', 409)
     }
     return  next();
 };

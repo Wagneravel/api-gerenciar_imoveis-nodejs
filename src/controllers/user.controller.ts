@@ -7,7 +7,7 @@ import { softDeleteUserService } from "../services/user/deleteUser.service"
 import { listUsersService } from "../services/user/listUsers.service"
 import { updateUserService } from "../services/user/updateUser.service"
 
-export const createMovieController = async (req:Request, res: Response) => {
+export const createUserController = async (req:Request, res: Response) => {
 
     const userData: IUserReq = req.body
 
@@ -41,5 +41,5 @@ export async function softDeleteUserController(req: Request, res: Response): Pro
   
     await softDeleteUserService(id);
   
-    res.status(204).end();
+    res.status(204).json();
   }

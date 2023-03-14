@@ -16,5 +16,5 @@ export const categorySchema = z.object({
 export const getAllCategoriesSchema = z.array(returnCategorySchema)  
 
 export const getRealEstateByCategory = returnCategorySchema.extend({
-  realEstates: z.array(realEstateSchema)
+  realEstate: z.array(realEstateSchema)
 })

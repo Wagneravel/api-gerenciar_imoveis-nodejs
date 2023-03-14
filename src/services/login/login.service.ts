@@ -17,13 +17,13 @@ export async function createLoginService(loginData: iLogin): Promise<string> {
   const user = await userRepository.findOne({ where: { email: loginData.email } });
 
   if (!user) {
-    throw new AppError("Invalid email or password", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const passwordMatches = await compare(loginData.password, user.password);
 
   if (!passwordMatches) {
-    throw new AppError("Invalid email or password", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const token = jwt.sign(

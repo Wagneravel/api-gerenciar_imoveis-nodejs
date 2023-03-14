@@ -15,8 +15,13 @@ export async function softDeleteUserService(id: number): Promise<void> {
     if (!user) {
       throw new AppError("User not found", 404);
     }
+
+    if(user.deletedAt){
+      throw new AppError("User was already deleted", 404);
+    }
+
+    userRepository.softDelete(user.id)
   
-    user.deletedAt = new Date();
     await userRepository.save(user);
   }
   

@@ -5,11 +5,12 @@ import verifyTokenIsValidMiddleware from "../middlewares/verifyTokenIsValid.midd
 import { createScheduleSchema } from "../schemas/schedules.schema";
 import { getScheduleByRealEstateIdController } from "../controllers/schedules.controller";
 import verifyIsAdminUserMiddleware from "../middlewares/verifyIsAdminUser.middleware";
+import verifyIsAdminOrSameUserMiddleware from "../middlewares/verifyIsAdminOrSameUser.middleware";
 
 
 const schedulesRoutes:Router = Router() 
 
-schedulesRoutes.post('',ensureDataIsValidMiddleware(createScheduleSchema), verifyTokenIsValidMiddleware, scheduleVisitController) //realEstate	Agenda uma visita a um imóvel
+schedulesRoutes.post('', verifyTokenIsValidMiddleware, ensureDataIsValidMiddleware(createScheduleSchema),  scheduleVisitController) //realEstate	Agenda uma visita a um imóvel
 schedulesRoutes.get('/realEstate/:id', verifyTokenIsValidMiddleware, verifyIsAdminUserMiddleware, getScheduleByRealEstateIdController) // lista todos os agendamentos de um imóvel
 
 

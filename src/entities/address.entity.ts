@@ -12,7 +12,7 @@ export class Address {
   @Column({ length: 8 })
   zipCode: string;
 
-  @Column({type:'varchar', nullable: true, length: 6 })
+  @Column({type:'varchar', nullable: true, length: 7 })
   number?: string | null | undefined;
 
   @Column({ length: 20 })

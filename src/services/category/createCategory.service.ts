@@ -11,8 +11,8 @@ export async function createCategoryService(name: string): Promise<iCategoryResp
   // Verifica se já existe uma categoria com o mesmo nome
   const existingCategory = await categoryRepository.findOne({ where: { name } });
 
-  if (existingCategory) {
-    throw new AppError("Já existe uma categoria com este nome.");
+  if (existingCategory?.name === name) {
+    throw new AppError("Category already exists", 409);
   }
 
   // Cria uma nova categoria

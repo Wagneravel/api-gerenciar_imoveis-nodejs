@@ -15,7 +15,7 @@ export async function getRealEstatesByCategoryIdService(categoryId: string): Pro
             id:Number(categoryId)
         },
         relations: {
-            realEstates:true
+            realEstate:true
         }
     });
 
